@@ -44,6 +44,14 @@ cc_defaults {
                 "-DSIZEOF_TIME_T=8",
             ],
         },
+        libc64: {
+            cflags: [
+                "-DSIZEOF_LONG=4",
+                "-DSIZEOF_LONG_LONG=8",
+                "-DSIZEOF_SIZE_T=4",
+                "-DSIZEOF_TIME_T=4",
+            ],
+        },
     },
 }
 
@@ -80,6 +88,8 @@ cc_library {
 
 cc_binary {
     name: "curl",
+    vendor: true,
+    host_supported: true,
     defaults: ["curl_common_defaults"],
     srcs: [
         "src/*.c",
@@ -90,4 +100,6 @@ cc_binary {
         "libz",
     ],
     static_libs: ["libcurl"],
+    static_executable: true,
+    compile_multilib: "c64",
 }
